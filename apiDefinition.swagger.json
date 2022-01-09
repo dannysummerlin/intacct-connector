@@ -1,0 +1,913 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "Intacct Web Services",
+    "description": "Intacct Web Services"
+  },
+  "host": "api.intacct.com",
+  "basePath": "/ia/xml/xmlgw.phtml",
+  "schemes": [
+    "https"
+  ],
+  "consumes": [],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/": {
+      "post": {
+        "summary": "Generate API Session",
+        "description": "Generate API Session",
+        "operationId": "GenerateApiSession",
+        "x-ms-visibility": "important",
+        "parameters": [],
+        "responses": {
+          "default": {
+            "description": "default",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "response": {
+                  "type": "object",
+                  "properties": {
+                    "control": {
+                      "type": "object",
+                      "properties": {
+                        "status": {
+                          "type": "string",
+                          "title": "Request Status",
+                          "x-ms-visibility": "important"
+                        }
+                      }
+                    },
+                    "operation": {
+                      "type": "object",
+                      "properties": {
+                        "authentication": {
+                          "type": "object",
+                          "x-ms-visibility": "internal",
+                          "properties": {
+                            "status": {
+                              "type": "string",
+                              "title": "Operation Status"
+                            }
+                          }
+                        },
+                        "result": {
+                          "type": "object",
+                          "properties": {
+                            "status": {
+                              "type": "string",
+                              "title": "Result Status"
+                            },
+                            "data": {
+                              "type": "object",
+                              "properties": {
+                                "api": {
+                                  "type": "object",
+                                  "properties": {
+                                    "sessionid": {
+                                      "type": "string",
+                                      "description": "Must be present in subsequent calls",
+                                      "title": "Session ID",
+                                      "x-ms-visibility": "important"
+                                    },
+                                    "endpoint": {
+                                      "type": "string",
+                                      "title": "API Endpoint",
+                                      "x-ms-visibility": "important"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/sendRequest": {
+      "post": {
+        "responses": {
+          "default": {
+            "description": "default",
+            "schema": {}
+          }
+        },
+        "summary": "Send Request",
+        "operationId": "SendRequest",
+        "x-ms-visibility": "important",
+        "parameters": [
+          {
+            "name": "x-a5634chsh-id",
+            "description": "Session ID - Use the Generate API Session action to get a session",
+            "in": "header",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "x-url-override",
+            "description": "Redefines URL back to base",
+            "in": "header",
+            "x-ms-visibility": "internal",
+            "required": true,
+            "type": "string",
+            "default": "true"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "data": {
+                  "type": "object",
+                  "properties": {},
+                  "description": "Data"
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "/readByQuery": {
+      "post": {
+        "responses": {
+          "default": {
+            "description": "default",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "response": {
+                  "type": "object",
+                  "properties": {
+                    "operation": {
+                      "type": "object",
+                      "properties": {
+                        "result": {
+                          "type": "object",
+                          "properties": {
+                            "status": {
+                              "type": "string"
+                            },
+                            "function": {
+                              "type": "string"
+                            },
+                            "data": {
+                              "type": "object",
+                              "properties": {
+                                "@listtype": {
+                                  "type": "string"
+                                },
+                                "@count": {
+                                  "type": "string"
+                                },
+                                "@totalcount": {
+                                  "type": "string"
+                                },
+                                "@numremaining": {
+                                  "type": "string"
+                                },
+                                "@resultId": {
+                                  "type": "string"
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "summary": "Read by Query",
+        "operationId": "ReadByQuery",
+        "x-ms-visibility": "important",
+        "parameters": [
+          {
+            "name": "x-a5634chsh-id",
+            "description": "Session ID - Use the Generate API Session action to get a session",
+            "in": "header",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "x-url-override",
+            "description": "Redefines URL back to base",
+            "in": "header",
+            "x-ms-visibility": "internal",
+            "required": true,
+            "type": "string",
+            "default": "true"
+          },
+          {
+            "name": "x-a5634chsh-required-fields",
+            "description": "fields required by XML structure",
+            "in": "header",
+            "x-ms-visibility": "internal",
+            "required": true,
+            "type": "string",
+            "default": "pagesize,query,fields"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "readByQuery": {
+                      "type": "object",
+                      "properties": {
+                        "object": {
+                          "title": "Object",
+                          "$ref": "#/definitions/intacctObjects"
+                        },
+                        "fields": {
+                          "type": "string",
+                          "title": "Fields",
+                          "x-ms-visibility": "advanced",
+                          "default": "*"
+                        },
+                        "query": {
+                          "type": "string",
+                          "title": "Query",
+                          "x-ms-visibility": "advanced",
+                          "default": ""
+                        },
+                        "pagesize": {
+                          "type": "number",
+                          "title": "Page Size",
+                          "default": 10
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "/query": {
+      "post": {
+        "responses": {
+          "default": {
+            "description": "default",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "response": {
+                  "type": "object",
+                  "properties": {
+                    "operation": {
+                      "type": "object",
+                      "properties": {
+                        "result": {
+                          "type": "object",
+                          "properties": {
+                            "status": {
+                              "type": "string"
+                            },
+                            "function": {
+                              "type": "string"
+                            },
+                            "data": {
+                              "type": "object",
+                              "properties": {
+                                "@listtype": {
+                                  "type": "string"
+                                },
+                                "@count": {
+                                  "type": "string"
+                                },
+                                "@totalcount": {
+                                  "type": "string"
+                                },
+                                "@numremaining": {
+                                  "type": "string"
+                                },
+                                "@resultId": {
+                                  "type": "string"
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "summary": "Query",
+        "operationId": "Query",
+        "x-ms-visibility": "important",
+        "parameters": [
+          {
+            "name": "x-a5634chsh-id",
+            "description": "Session ID - Use the Generate API Session action to get a session",
+            "in": "header",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "x-url-override",
+            "description": "Redefines URL back to base",
+            "in": "header",
+            "x-ms-visibility": "internal",
+            "required": true,
+            "type": "string",
+            "default": "true"
+          },
+          {
+            "name": "x-a5634chsh-required-fields",
+            "description": "fields required by XML structure",
+            "in": "header",
+            "x-ms-visibility": "internal",
+            "required": true,
+            "type": "string",
+            "default": "select,fields"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "query": {
+                      "type": "object",
+                      "properties": {
+                        "object": {
+                          "title": "Object",
+                          "$ref": "#/definitions/intacctObjects"
+                        },
+                        "select": {
+                          "type": "object",
+                          "properties": {
+                            "field": {
+                              "title": "Fields",
+                              "type": "array",
+                              "items": {
+                                "type": "string"
+                              }
+                            },
+                            "count": {
+                              "title": "Aggregate Functions",
+                              "type": "array",
+                              "x-ms-visibility": "advanced",
+                              "items": {
+                                "type": "string"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "intacctObjects": {
+      "type": "string",
+      "description": "Objects from Intacct",
+      "enum": [
+        "ACCTTITLEBYLOC",
+        "ACCUMULATIONTYPE",
+        "ACHBANK",
+        "ACTIVITYLOG",
+        "ADVAUDITHISTORY",
+        "AISLE",
+        "ALLOCATION",
+        "ALLOCATIONENTRY",
+        "APACCOUNTLABEL",
+        "APADJUSTMENT",
+        "APADJUSTMENTITEM",
+        "APBILL",
+        "APBILLBATCH",
+        "APBILLITEM",
+        "APPAYMENT",
+        "APPAYMENTREQUEST",
+        "APPYMT",
+        "APPYMTDETAIL",
+        "APRECURBILL",
+        "APRECURBILLENTRY",
+        "APRETAINAGERELEASE",
+        "APRETAINAGERELEASEENTRY",
+        "APTERM",
+        "ARACCOUNTLABEL",
+        "ARADJUSTMENT",
+        "ARADJUSTMENTITEM",
+        "ARADVANCE",
+        "ARINVOICE",
+        "ARINVOICEBATCH",
+        "ARINVOICEITEM",
+        "ARPAYMENT",
+        "ARPYMT",
+        "ARRECURINVOICE",
+        "ARRECURINVOICEENTRY",
+        "ARRETAINAGERELEASE",
+        "ARRETAINAGERELEASEENTRY",
+        "ARTERM",
+        "asset",
+        "AUDITHISTORY",
+        "AVAILABLEINVENTORY",
+        "BANKACCTRECON",
+        "BANKACCTTXNFEED",
+        "BANKFEE",
+        "BANKFEEENTRY",
+        "BIN",
+        "BINFACE",
+        "BINSIZE",
+        "CCTRANSACTION",
+        "CCTRANSACTIONENTRY",
+        "CHANGEREQUEST",
+        "CHANGEREQUESTENTRY",
+        "CHANGEREQUESTSTATUS",
+        "CHANGEREQUESTTYPE",
+        "CHARGEPAYOFF",
+        "CHARGEPAYOFFENTRY",
+        "CHECKINGACCOUNT",
+        "CLASS",
+        "CLASSGROUP",
+        "COGSCLOSEDJE",
+        "CONTACT",
+        "CONTRACT",
+        "CONTRACTBILLINGSCHEDULE",
+        "CONTRACTBILLINGSCHEDULEENTRY",
+        "CONTRACTBILLINGTEMPLATE",
+        "CONTRACTBILLINGTEMPLATEENTRY",
+        "CONTRACTDETAIL",
+        "CONTRACTEXPENSE",
+        "CONTRACTEXPENSE2SCHEDULE",
+        "CONTRACTEXPENSESCHEDULE",
+        "CONTRACTEXPENSETEMPLATE",
+        "CONTRACTGROUP",
+        "CONTRACTITEMPRCLSTENTYTIER",
+        "CONTRACTITEMPRICELIST",
+        "CONTRACTITEMPRICELISTENTRY",
+        "CONTRACTMEABUNDLE",
+        "CONTRACTMEAITEMPRICELIST",
+        "CONTRACTMEAITEMPRICELISTENTRY",
+        "CONTRACTMEAPRICELIST",
+        "CONTRACTPRICELIST",
+        "CONTRACTREVENUE2SCHEDULE",
+        "CONTRACTREVENUESCHEDULE",
+        "CONTRACTREVENUETEMPLATE",
+        "CONTRACTTYPE",
+        "CONTRACTUSAGE",
+        "COSTTYPE",
+        "CREDITCARD",
+        "CREDITCARDFEE",
+        "CREDITCARDFEEENTRY",
+        "CUSTOMER",
+        "CUSTOMEREMAILTEMPLATE",
+        "CUSTOMERGROUP",
+        "CUSTTYPE",
+        "DDSJOB",
+        "DEPARTMENT",
+        "DEPARTMENTGROUP",
+        "DEPOSIT",
+        "DEPOSITENTRY",
+        "EARNINGTYPE",
+        "EEACCOUNTLABEL",
+        "EEXPENSES",
+        "EMPLOYEE",
+        "EMPLOYEEGROUP",
+        "EMPLOYEETYPE",
+        "ENTITYACCTDEFAULT",
+        "ENTITYACCTOVERRIDE",
+        "EPPAYMENT",
+        "EPPAYMENTREQUEST",
+        "EXCHANGERATE",
+        "EXCHANGERATEENTRY",
+        "EXCHANGERATETYPES",
+        "EXPENSEADJUSTMENTS",
+        "EXPENSEADJUSTMENTSITEM",
+        "EXPENSEPAYMENTTYPE",
+        "FUNDSTRANSFER",
+        "FUNDSTRANSFERENTRY",
+        "GCBOOK",
+        "GCBOOKACCTRATETYPE",
+        "GCBOOKADJJOURNAL",
+        "GCBOOKELIMACCOUNT",
+        "GCBOOKENTITY",
+        "GENINVOICEFILTERS",
+        "GENINVOICEPREVIEW",
+        "GENINVOICEPREVIEWLINE",
+        "GENINVOICERUN",
+        "GLACCOUNT",
+        "GLACCOUNTBALANCE",
+        "GLACCTALLOCATION",
+        "GLACCTALLOCATIONGRP",
+        "GLACCTALLOCATIONRUN",
+        "GLACCTGRP",
+        "GLACCTGRPHIERARCHY",
+        "GLACCTGRPPURPOSE",
+        "GLBATCH",
+        "GLBUDGETHEADER",
+        "GLBUDGETITEM",
+        "GLDETAIL",
+        "GLENTRY",
+        "ICROW",
+        "ICTRANSFER",
+        "ICTRANSFERITEM",
+        "INTERENTITYSETUP",
+        "INVDOCUMENT",
+        "INVDOCUMENTENTRY",
+        "INVDOCUMENTPARAMS",
+        "INVDOCUMENTSUBTOTALS",
+        "INVENTORYTOTALDETAIL",
+        "INVPRICELIST",
+        "ITEM",
+        "ITEMCROSSREF",
+        "ITEMGLGROUP",
+        "ITEMGROUP",
+        "ITEMTAXGROUP",
+        "ITEMWAREHOUSEINFO",
+        "JOBQUEUERECORD",
+        "LOCATION",
+        "LOCATIONENTITY",
+        "LOCATIONGROUP",
+        "MCA_attendee",
+        "MEMBERUSERGROUP",
+        "OBSPCTCOMPLETED",
+        "OTHERRECEIPTS",
+        "OTHERRECEIPTSENTRY",
+        "PJESTIMATE",
+        "PJESTIMATEENTRY",
+        "PJESTIMATETYPE",
+        "PODOCUMENT",
+        "PODOCUMENTENTRY",
+        "PODOCUMENTPARAMS",
+        "PODOCUMENTSUBTOTALS",
+        "POPRICELIST",
+        "POSITIONSKILL",
+        "POSUBTOTALTEMPLATE",
+        "PRODUCTLINE",
+        "PROJECT",
+        "PROJECTCHANGEORDER",
+        "PROJECTGROUP",
+        "PROJECTRESOURCES",
+        "PROJECTSTATUS",
+        "PROJECTTYPE",
+        "PROVIDERBANKACCOUNT",
+        "PROVIDERPAYMENTMETHOD",
+        "PROVIDERVENDOR",
+        "PTAPPLICATION",
+        "RECURGLACCTALLOCATION",
+        "REPORTINGPERIOD",
+        "REVRECSCHEDULE",
+        "REVRECSCHEDULEENTRY",
+        "ROLEASSIGNMENT",
+        "ROLEGROUPS",
+        "ROLEPOLICYASSIGNMENT",
+        "ROLES",
+        "ROLEUSERS",
+        "SAVINGSACCOUNT",
+        "SODOCUMENT",
+        "SODOCUMENTENTRY",
+        "SODOCUMENTPARAMS",
+        "SODOCUMENTSUBTOTALS",
+        "SOPRICELIST",
+        "SORECURDOCUMENT",
+        "SOSUBTOTALTEMPLATE",
+        "STANDARDCOSTTYPE",
+        "STANDARDTASK",
+        "STATACCOUNT",
+        "TASK",
+        "TASKRESOURCES",
+        "TAXDETAIL",
+        "TAXRECORD",
+        "TAXSOLUTION",
+        "TIMESHEET",
+        "TIMESHEETAPPROVAL",
+        "TIMESHEETENTRY",
+        "TIMETYPE",
+        "TRANSACTIONRULE",
+        "TRANSACTIONRULEDETAIL",
+        "UOM",
+        "UOMDETAIL",
+        "USERGROUP",
+        "USERINFO",
+        "USERRESTRICTION",
+        "USERRIGHTS",
+        "USERROLES",
+        "VENDOR",
+        "VENDOREMAILTEMPLATE",
+        "VENDORGROUP",
+        "VENDTYPE",
+        "WAREHOUSE",
+        "WAREHOUSEGROUP",
+        "ZONE"
+      ]
+    },
+    "fieldsAPBILL": {
+      "type": "string",
+      "description": "Fields for APBILL",
+      "enum": [
+        "RECORDNO",
+        "RECORDTYPE",
+        "RECORDID",
+        "FINANCIALENTITY",
+        "STATE",
+        "RAWSTATE",
+        "VENDORID",
+        "VENDORNAME",
+        "FORM1099TYPE",
+        "FORM1099BOX",
+        "VENDTYPE1099TYPE",
+        "TRX_ENTITYDUE",
+        "DOCNUMBER",
+        "DESCRIPTION",
+        "DESCRIPTION2",
+        "TERMNAME",
+        "TERMKEY",
+        "TERMVALUE",
+        "WHENCREATED",
+        "WHENPOSTED",
+        "WHENDISCOUNT",
+        "WHENDUE",
+        "WHENPAID",
+        "RECPAYMENTDATE",
+        "PAYMENTPRIORITY",
+        "ONHOLD",
+        "BASECURR",
+        "CURRENCY",
+        "EXCH_RATE_DATE",
+        "EXCH_RATE_TYPE_ID",
+        "EXCHANGE_RATE",
+        "TOTALENTERED",
+        "TOTALSELECTED",
+        "TOTALPAID",
+        "TOTALDUE",
+        "TRX_TOTALENTERED",
+        "TRX_TOTALSELECTED",
+        "TRX_TOTALPAID",
+        "TRX_TOTALDUE",
+        "BILLTOPAYTOCONTACTNAME",
+        "SHIPTORETURNTOCONTACTNAME",
+        "BILLTOPAYTOKEY",
+        "SHIPTORETURNTOKEY",
+        "PRBATCH",
+        "PRBATCHKEY",
+        "MODULEKEY",
+        "SCHOPKEY",
+        "SYSTEMGENERATED",
+        "AUWHENCREATED",
+        "WHENMODIFIED",
+        "CREATEDBY",
+        "MODIFIEDBY",
+        "DUE_IN_DAYS",
+        "PAYTO",
+        "INCLUSIVETAX",
+        "TAXSOLUTIONID",
+        "RETAINAGEPERCENTAGE",
+        "TRX_TOTALRETAINED",
+        "TRX_TOTALRELEASED",
+        "TOTALRETAINED",
+        "SUPDOCID",
+        "BILLBACKTEMPLATE",
+        "MEGAENTITYKEY",
+        "MEGAENTITYID",
+        "MEGAENTITYNAME",
+        "RECORD_URL"
+      ]
+    },
+    "fieldsVENDOR": {
+      "type": "string",
+      "description": "Fields for VENDOR",
+      "enum": [
+        "RECORDNO",
+        "VENDORID",
+        "NAME",
+        "NAME1099",
+        "PARENTKEY",
+        "PARENTID",
+        "PARENTNAME",
+        "DISPLAYCONTACT",
+        "ENTITY",
+        "TERMNAME",
+        "TERMVALUE",
+        "VENDORACCOUNTNO",
+        "TAXID",
+        "CREDITLIMIT",
+        "TOTALDUE",
+        "BILLINGTYPE",
+        "VENDTYPE",
+        "VENDTYPE1099TYPE",
+        "GLGROUP",
+        "PRICESCHEDULE",
+        "DISCOUNT",
+        "PRICELIST",
+        "COMMENTS",
+        "ACCOUNTLABEL",
+        "APACCOUNT",
+        "APACCOUNTTITLE",
+        "FORM1099TYPE",
+        "FORM1099BOX",
+        "PAYMENTPRIORITY",
+        "CONTACTINFO",
+        "PAYTO",
+        "RETURNTO",
+        "STATUS",
+        "PAYDATEVALUE",
+        "ONETIME",
+        "ONHOLD",
+        "WHENMODIFIED",
+        "ISOWNER",
+        "DONOTCUTCHECK",
+        "OWNER",
+        "CURRENCY",
+        "PYMTCOUNTRYCODE",
+        "FILEPAYMENTSERVICE",
+        "ACHENABLED",
+        "WIREENABLED",
+        "CHECKENABLED",
+        "ACHBANKROUTINGNUMBER",
+        "ACHACCOUNTNUMBER",
+        "ACHACCOUNTTYPE",
+        "ACHREMITTANCETYPE",
+        "WIREBANKNAME",
+        "WIREBANKROUTINGNUMBER",
+        "WIREACCOUNTNUMBER",
+        "WIREACCOUNTTYPE",
+        "PMPLUSREMITTANCETYPE",
+        "PMPLUSEMAIL",
+        "PMPLUSFAX",
+        "DISPLAYTERMDISCOUNT",
+        "OEPRCLSTKEY",
+        "DISPLOCACCTNOCHECK",
+        "WHENCREATED",
+        "CREATEDBY",
+        "MODIFIEDBY",
+        "PAYMENTNOTIFY",
+        "PAYMETHODKEY",
+        "OBJECTRESTRICTION",
+        "MERGEPAYMENTREQ",
+        "DISPLAYCONTACTKEY",
+        "PRIMARYCONTACTKEY",
+        "PAYTOKEY",
+        "RETURNTOKEY",
+        "ACCOUNTLABELKEY",
+        "ACCOUNTKEY",
+        "VENDTYPEKEY",
+        "GLGRPKEY",
+        "TERMSKEY",
+        "VENDORACCTNOKEY",
+        "PAYMETHODREC",
+        "OUTSOURCECHECK",
+        "OUTSOURCECHECKSTATE",
+        "OUTSOURCEACH",
+        "OUTSOURCEACHSTATE",
+        "OUTSOURCECARD",
+        "OUTSOURCECARDOVERRIDE",
+        "CARDSTATE",
+        "VENDORACHACCOUNTID",
+        "VENDORACCOUNTOUTSOURCEACH",
+        "OFFSETGLACCOUNTNO",
+        "OFFSETGLACCOUNTNOTITLE",
+        "CONTACTTO1099",
+        "CONTACTKEY1099",
+        "SUPDOCID",
+        "VENDOR_AMEX_ORGANIZATION_ID",
+        "VENDOR_AMEX_ORG_ADDRESS_ID",
+        "VENDOR_AMEX_CD_AFFILIATE_ID",
+        "VENDOR_AMEX_CARD_AFFILIATE_ID",
+        "AMEX_BANK_ACCOUNT_ID",
+        "AMEX_BANK_ACCOUNT_ADDRESS_ID",
+        "DEFAULT_LEAD_TIME",
+        "RETAINAGEPERCENTAGE",
+        "ISINDIVIDUAL",
+        "MEGAENTITYKEY",
+        "MEGAENTITYID",
+        "MEGAENTITYNAME",
+        "RECORD_URL"
+      ]
+    },
+    "fieldsCUSTOMER":
+    {
+      "type": "string",
+      "description": "Fields for CUSTOMER",
+      "enum": [
+        "RECORDNO",
+        "CUSTOMERID",
+        "NAME",
+        "ENTITY",
+        "PARENTKEY",
+        "PARENTID",
+        "PARENTNAME",
+        "DISPLAYCONTACT",
+        "TERMNAME",
+        "TERMVALUE",
+        "CUSTREPID",
+        "CUSTREPNAME",
+        "RESALENO",
+        "TAXID",
+        "CREDITLIMIT",
+        "TOTALDUE",
+        "COMMENTS",
+        "ACCOUNTLABEL",
+        "ARACCOUNT",
+        "ARACCOUNTTITLE",
+        "LAST_INVOICEDATE",
+        "LAST_STATEMENTDATE",
+        "DELIVERY_OPTIONS",
+        "TERRITORYID",
+        "TERRITORYNAME",
+        "SHIPPINGMETHOD",
+        "CUSTTYPE",
+        "GLGRPKEY",
+        "GLGROUP",
+        "PRICESCHEDULE",
+        "DISCOUNT",
+        "PRICELIST",
+        "VSOEPRICELIST",
+        "CURRENCY",
+        "CONTACTINFO",
+        "SHIPTO",
+        "BILLTO",
+        "STATUS",
+        "ONETIME",
+        "CUSTMESSAGEID",
+        "ONHOLD",
+        "PRCLST_OVERRIDE",
+        "OEPRCLSTKEY",
+        "OEPRICESCHEDKEY",
+        "ENABLEONLINECARDPAYMENT",
+        "ENABLEONLINEACHPAYMENT",
+        "VSOEPRCLSTKEY",
+        "WHENMODIFIED",
+        "ARINVOICEPRINTTEMPLATEID",
+        "OEQUOTEPRINTTEMPLATEID",
+        "OEORDERPRINTTEMPLATEID",
+        "OELISTPRINTTEMPLATEID",
+        "OEINVOICEPRINTTEMPLATEID",
+        "OEADJPRINTTEMPLATEID",
+        "OEOTHERPRINTTEMPLATEID",
+        "WHENCREATED",
+        "CREATEDBY",
+        "MODIFIEDBY",
+        "OBJECTRESTRICTION",
+        "DISPLAYCONTACTKEY",
+        "CONTACTKEY",
+        "SHIPTOKEY",
+        "BILLTOKEY",
+        "CUSTREPKEY",
+        "SHIPVIAKEY",
+        "TERRITORYKEY",
+        "TERMSKEY",
+        "ACCOUNTLABELKEY",
+        "ACCOUNTKEY",
+        "CUSTTYPEKEY",
+        "PRICESCHEDULEKEY",
+        "OFFSETGLACCOUNTNO",
+        "OFFSETGLACCOUNTNOTITLE",
+        "ADVBILLBY",
+        "ADVBILLBYTYPE",
+        "SUPDOCID",
+        "RETAINAGEPERCENTAGE",
+        "EMAILOPTIN",
+        "MEGAENTITYKEY",
+        "MEGAENTITYID",
+        "MEGAENTITYNAME",
+        "COHORT",
+        "RECORD_URL"
+      ]
+    }
+  },
+  "parameters": {},
+  "responses": {},
+  "securityDefinitions": {},
+  "security": [],
+  "tags": []
+}

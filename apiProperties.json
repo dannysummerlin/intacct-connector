@@ -1,0 +1,136 @@
+{
+  "properties": {
+    "connectionParameters": {
+      "companyid": {
+        "type": "string",
+        "uiDefinition": {
+          "displayName": "Company ID",
+          "description": "The Intacct provided company ID",
+          "tooltip": null,
+          "constraints": {
+            "tabIndex": 2,
+            "clearText": true,
+            "required": "true"
+          }
+        }
+      },
+      "username": {
+        "type": "securestring",
+        "uiDefinition": {
+          "displayName": "Username",
+          "description": "An administrative user account",
+          "tooltip": null,
+          "constraints": {
+            "tabIndex": 3,
+            "clearText": true,
+            "required": "true"
+          }
+        }
+      },
+      "password": {
+        "type": "securestring",
+        "uiDefinition": {
+          "displayName": "Password",
+          "description": "The user's Intacct password",
+          "tooltip": null,
+          "constraints": {
+            "tabIndex": 4,
+            "clearText": false,
+            "required": "true"
+          }
+        }
+      },
+      "senderid": {
+        "type": "securestring",
+        "uiDefinition": {
+          "displayName": "Sender ID",
+          "description": "Provided by Intacct upon purchase of API access",
+          "tooltip": null,
+          "constraints": {
+            "tabIndex": 5,
+            "clearText": true,
+            "required": "true"
+          }
+        }
+      },
+      "senderpassword": {
+        "type": "securestring",
+        "uiDefinition": {
+          "displayName": "Sender Password",
+          "description": "Provided by Intacct upon purchase of API access",
+          "tooltip": null,
+          "constraints": {
+            "tabIndex": 6,
+            "clearText": false,
+            "required": "true"
+          }
+        }
+      }
+    },
+    "iconBrandColor": "#00dc00",
+    "capabilities": [],
+    "policyTemplateInstances": [
+      {
+        "templateId": "setheader",
+        "title": "x-a5634chsh-url",
+        "parameters": {
+          "x-ms-apimTemplateParameter.name": "x-a5634chsh-url",
+          "x-ms-apimTemplateParameter.value": "https://api.intacct.com/ia/xml/xmlgw.phtml",
+          "x-ms-apimTemplateParameter.existsAction": "override",
+          "x-ms-apimTemplate-policySection": "Request"
+        }
+      },
+      {
+        "templateId": "setheader",
+        "title": "x-a5634chsh-si",
+        "parameters": {
+          "x-ms-apimTemplateParameter.name": "x-a5634chsh-si",
+          "x-ms-apimTemplateParameter.value": "@connectionParameters('senderid')",
+          "x-ms-apimTemplateParameter.existsAction": "override",
+          "x-ms-apimTemplate-policySection": "Request"
+        }
+      },
+      {
+        "templateId": "setheader",
+        "title": "x-a5634chsh-sp",
+        "parameters": {
+          "x-ms-apimTemplateParameter.name": "x-a5634chsh-sp",
+          "x-ms-apimTemplateParameter.value": "@connectionParameters('senderpassword')",
+          "x-ms-apimTemplateParameter.existsAction": "override",
+          "x-ms-apimTemplate-policySection": "Request"
+        }
+      },
+      {
+        "templateId": "setheader",
+        "title": "x-a5634chsh-ui",
+        "parameters": {
+          "x-ms-apimTemplateParameter.name": "x-a5634chsh-ui",
+          "x-ms-apimTemplateParameter.value": "@connectionParameters('username')",
+          "x-ms-apimTemplateParameter.existsAction": "override",
+          "x-ms-apimTemplate-policySection": "Request"
+        }
+      },
+      {
+        "templateId": "setheader",
+        "title": "x-a5634chsh-up",
+        "parameters": {
+          "x-ms-apimTemplateParameter.name": "x-a5634chsh-up",
+          "x-ms-apimTemplateParameter.value": "@connectionParameters('password')",
+          "x-ms-apimTemplateParameter.existsAction": "override",
+          "x-ms-apimTemplate-policySection": "Request"
+        }
+      },
+      {
+        "templateId": "setheader",
+        "title": "x-a5634chsh-ci",
+        "parameters": {
+          "x-ms-apimTemplateParameter.name": "x-a5634chsh-ci",
+          "x-ms-apimTemplateParameter.value": "@connectionParameters('companyid')",
+          "x-ms-apimTemplateParameter.existsAction": "override",
+          "x-ms-apimTemplate-policySection": "Request"
+        }
+      }
+    ],
+    "publisher": "O365 Admin"
+  }
+}
